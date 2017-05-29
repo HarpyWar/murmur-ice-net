@@ -1,4 +1,7 @@
-﻿using Ice;
+﻿// (c) 2017 HarpyWar (harpywar@gmail.com))
+// This code is licensed under MIT license (see LICENSE for details)
+
+using Ice;
 using MurmurPlugin;
 using System;
 using System.Collections.Generic;

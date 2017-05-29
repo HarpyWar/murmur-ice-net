@@ -1,4 +1,7 @@
-﻿using System;
+﻿// (c) 2017 HarpyWar (harpywar@gmail.com))
+// This code is licensed under MIT license (see LICENSE for details)
+
+using System;
 
 namespace MurmurPlugin
 {

@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// (c) 2017 HarpyWar (harpywar@gmail.com))
+// This code is licensed under MIT license (see LICENSE for details)
+
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace MurmurPlugin
