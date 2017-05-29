@@ -21,8 +21,11 @@ try
 	int users = 0;
 	foreach (var s in instance.GetAllServers())
 	{
-		users += s.GetOnline();
-		Console.WriteLine("[0] {1} users online", s.Port, users);
+		if (s.Value.IsRunning())
+		{
+			users += s.GetOnline();
+			Console.WriteLine("[0] {1} users online", s.Value.Port, users);
+		}
 	}
 	Console.WriteLine("\nOverall users online: {0}", users);
 }
