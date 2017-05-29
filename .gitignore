@@ -1,0 +1,14 @@
+Murmur/bin/
+Murmur/obj/
+MurmurAdapter/bin/
+MurmurAdapter/obj/
+MurmurPlugin/bin/
+MurmurPlugin/obj/
+MurmurVersionCompiler/bin/
+MurmurVersionCompiler/obj/
+MurmurVersionCompiler/slice2cs/
+MurmurTest/
+*.suo
+*.user
+*.prr
+*.xas
