@@ -65,7 +65,7 @@ Contain types and interfaces for **Murmur**.
 
 Compiler for **Murmur**. When start it iterates `MurmurVersionCompiler\Slice\*.cs` files and replace `Murmur.cs` inside **Murmur** project with the subsequent build the project. 
 
-Thus each Ice slice will be compiled into `Murmur_{VERSION}`.dll
+Thus each Ice slice will be compiled into `Murmur\bin\Murmur_{VERSION}`.dll
 
 You have to put the dlls you need into a directory with your project.
 
