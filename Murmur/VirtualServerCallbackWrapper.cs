@@ -52,10 +52,13 @@ namespace Murmur
             callbackHandler.UserStateChanged(VirtualServer.getOnlineUser(state), server);
         }
 
+#if MURMUR_123380
         public override void userTextMessage(User state, TextMessage message, Current current__)
         {
             // UNDONE: create wrapper for TextMessage, it has more context than just a message text
             callbackHandler.UserTextMessage(VirtualServer.getOnlineUser(state), message.text, server);
         }
+#endif
+
     }
 }
