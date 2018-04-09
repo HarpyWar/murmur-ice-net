@@ -161,14 +161,24 @@ namespace Murmur
                     // remember old id, because after add user it will be updated to the new
                     var old_uid = u.Value.Id;
 
-                    // register new user and update object Id
-                    u.Value.Id = server.RegisterUser(u.Value);
+                    try
+                    {
+                        // register new user and update object Id
+                        u.Value.Id = server.RegisterUser(u.Value);
 
-                    // map oldid <-> newid
-                    newUserIds.Add(old_uid, u.Value.Id);
+                        // map oldid <-> newid
+                        newUserIds.Add(old_uid, u.Value.Id);
 #if DEBUG
-                    Console.WriteLine("[{0}][add] user #{1}", server.Id, u.Key);
+                        Console.WriteLine("[{0}][add] user #{1}", server.Id, u.Key);
 #endif
+                    }
+                    catch
+                    {
+                        // UNDONE: user names with special characters (like ★) throw exception
+#if DEBUG
+                        Console.WriteLine("[ERROR] bad username " + u.Value.Info[VirtualServerEntity.User.UserInfo.UserName].ToString());
+#endif
+                    }
                 }
 
 

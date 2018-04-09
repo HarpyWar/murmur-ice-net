@@ -884,11 +884,23 @@ namespace Murmur
                 // clear
                 _entity.Users.Clear();
 
+                var users = _server.getRegisteredUsers(filter);
+
                 // add
-                foreach (var u in _server.getRegisteredUsers(filter))
+                foreach (var u in users)
                 {
-                    // insert to _entity.Users is in GetUser method
-                    GetUser(u.Key, getInfo, getTexture, cache); // cache = always false
+                    try
+                    {
+                        // insert to _entity.Users is in GetUser method
+                        GetUser(u.Key, getInfo, getTexture, cache); // cache = always false
+                    }
+                    catch
+                    {
+                        // UNDONE: error reporting - bad user, mostly "SuperUser" (sometimes it may throws on _server.getRegistration(userId);
+#if DEBUG
+                        Console.WriteLine("[ERROR] bad user " + u.Value);
+#endif
+                    }
                 }
             }
             return _entity.Users;
