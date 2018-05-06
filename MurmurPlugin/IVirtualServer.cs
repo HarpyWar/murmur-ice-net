@@ -234,11 +234,11 @@ namespace MurmurPlugin
         int AddChannel(string name, int parentId);
 
         /// <summary>
-        /// Update exist channel
+        /// Update exist channel (can be used to move channels)
         /// </summary>
         /// <param name="channel"></param>
         /// <param name="setAcl">add acls and groups?</param>
-        void UpdateChannel(VirtualServerEntity.Channel channel, bool setAcl = false);
+        void UpdateChannelState(VirtualServerEntity.Channel channel, bool setAcl = false);
 
         /// <summary>
         /// Remove channel
@@ -294,6 +294,11 @@ namespace MurmurPlugin
         /// <param name="setAcl">add acls and groups?</param>
         void UpdateUserInfo(VirtualServerEntity.User user);
 
+        /// <summary>
+        /// Update online user state (can be used to move/deaf/mute users)
+        /// </summary>
+        /// <param name="user"></param>
+        void UpdateUserState(VirtualServerEntity.OnlineUser user);
 
         /// <summary>
         /// Kick user from the server

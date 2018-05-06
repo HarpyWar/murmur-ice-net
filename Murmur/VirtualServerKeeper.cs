@@ -269,7 +269,7 @@ namespace Murmur
 #if DEBUG
                     Console.WriteLine("[{0}][updating] channel #{1} {2}", server.Id, c.Key, c.Value.Name);
 #endif
-                    server.UpdateChannel(c.Value, true);
+                    server.UpdateChannelState(c.Value, true);
                 }
 
                 // -- BANS

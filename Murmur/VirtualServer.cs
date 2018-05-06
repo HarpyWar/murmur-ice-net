@@ -712,7 +712,7 @@ namespace Murmur
         /// </summary>
         /// <param name="channel"></param>
         /// <param name="setAcl">add acls and groups?</param>
-        public void UpdateChannel(VirtualServerEntity.Channel channel, bool setAcl = false)
+        public void UpdateChannelState(VirtualServerEntity.Channel channel, bool setAcl = false)
         {
             // set channel info
             var state = new Channel(channel.Id, channel.Name, channel.ParentId, channel.Links, channel.Description, false, channel.Position);
@@ -834,7 +834,7 @@ namespace Murmur
                 Session = u.session,
                 Supress = u.suppress,
                 TcpOnly = u.tcponly,
-#if MURMUR_124
+#if MURMUR_123380
                 TcpPing = u.tcpPing,
                 UdpPing = u.udpPing,
 #endif
@@ -994,7 +994,7 @@ namespace Murmur
 
 
         /// <summary>
-        /// Update exist user
+        /// Update registered user
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="user">with updated info</param>
@@ -1016,7 +1016,38 @@ namespace Murmur
                 _entity.Users.Add(user.Id, user);
         }
 
+        /// <summary>
+        /// Update online user state (can be used to move/deaf/mute users)
+        /// </summary>
+        /// <param name="user"></param>
+        public void UpdateUserState(VirtualServerEntity.OnlineUser user)
+        {
+            // set user state
+            var state = new User(user.Session, user.Id, user.Mute, user.Deaf, user.Supress,
+#if MURMUR_123
+                user.PrioritySpeaker, 
+#endif
+                user.SelfMute, user.SelfDeaf,
+#if MURMUR_123
+                user.Recording, 
+#endif
+                user.ChannelId, user.Name, user.OnlineSecs, user.BytesPerSec, user.Version, user.Release,
+                user.Os, user.OsVersion, user.Identity, user.Context, user.Comment, user.Address, user.TcpOnly, user.Idlesecs
+#if MURMUR_123380
+                ,
+                user.UdpPing, 
+                user.TcpPing
+#endif
+                );
 
+            _server.setState(state);
+
+            // update in cache
+            if (_entity.OnlineUsers.ContainsKey(user.Id))
+                _entity.OnlineUsers[user.Id] = user;
+            else
+                _entity.OnlineUsers.Add(user.Id, user);
+        }
 
         /// <summary>
         /// Kick user from the server
@@ -1039,10 +1070,10 @@ namespace Murmur
             }
         }
 
-        #endregion
+#endregion
 
 
-        #region BANS
+#region BANS
 
         /// <summary>
         /// Flag to know if users was already loaded from remote or not
@@ -1112,7 +1143,7 @@ namespace Murmur
             _entity.Bans = bans;
         }
 
-        #endregion
+#endregion
 
 
         /// <summary>
@@ -1162,7 +1193,7 @@ namespace Murmur
         }
 
 
-        #region CALLBACKS
+#region CALLBACKS
 
         private Dictionary<string, object> callbacks = new Dictionary<string, object>();
 
@@ -1202,10 +1233,10 @@ namespace Murmur
             }
         }
 
-        #endregion
+#endregion
 
 
-        #region IDisposable Support
+#region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
@@ -1240,7 +1271,7 @@ namespace Murmur
             // GC.SuppressFinalize(this);
         }
 
-        #endregion
+#endregion
     }
 
 

@@ -77,7 +77,25 @@ namespace MurmurPlugin
             public bool TcpOnly;
             public float UdpPing;
             public int Version;
+
+            public void Move(IVirtualServer server, int newChannelId)
+            {
+                this.ChannelId = newChannelId;
+                server.UpdateUserState(this);
+            }
+            public void SetMute(IVirtualServer server, bool mute)
+            {
+                this.Mute = mute;
+                server.UpdateUserState(this);
+            }
+            public void SetDeafen(IVirtualServer server, bool deaf)
+            {
+                this.Deaf = deaf;
+                server.UpdateUserState(this);
+            }
+
         }
+
 
         public class Channel
         {
@@ -116,6 +134,17 @@ namespace MurmurPlugin
                 public string Group;
                 public bool Inherited;
                 public int UserId;
+            }
+
+            public void Move(IVirtualServer server, int newParentId)
+            {
+                this.ParentId = newParentId;
+                server.UpdateChannelState(this);
+            }
+            public void SetName(IVirtualServer server, string newName)
+            {
+                this.Name = newName;
+                server.UpdateChannelState(this);
             }
         }
 
