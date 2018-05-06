@@ -35,7 +35,12 @@ namespace MurmurVersionCompiler
                 var v = Path.GetFileName(f).Replace("Murmur_", "").Replace(".cs", "");
                 versions.Add(v);
             }
-                
+
+            // cerrect sort
+            versions.Sort((x, y) => {
+                return x.CompareTo(y);
+            });
+
             foreach (var v in versions)
             {
                 contentDic.Clear();
@@ -71,17 +76,20 @@ namespace MurmurVersionCompiler
         static void Build(string version)
         {
             string shortVersion = version.Replace(".", "");
+            string _shortVersion;
 
-            // add all versions on defines
+            // add current version, including all previous, to defines
             string defines = "";
             foreach (var v in versions)
             {
-                defines += string.Format("MURMUR_{0};", shortVersion);
+                _shortVersion = v.Replace(".", "");
+                defines += string.Format("MURMUR_{0};", _shortVersion);
 
                 // stop adding constants
                 if (v == version)
                     break;
             }
+ 
             // Instantiate a new Engine object
             var engine = new Engine();
 

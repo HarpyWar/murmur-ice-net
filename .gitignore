@@ -8,6 +8,7 @@ MurmurVersionCompiler/bin/
 MurmurVersionCompiler/obj/
 MurmurVersionCompiler/slice2cs/
 MurmurTest/
+.localhistory/
 *.suo
 *.user
 *.prr
